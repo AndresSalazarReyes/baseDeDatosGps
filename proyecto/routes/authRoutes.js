@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const authController = require('../controllers/authController');  // Importación correcta
 
-const authController = require('../controllers/authController');
+router.post('/login', authController.login);  // Esto debe ser correcto
 
-// Ruta para el login
-router.post('/login', authController.login);
-
-module.exports = router;
+module.exports = router;  // Exporta el route

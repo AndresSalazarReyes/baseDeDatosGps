@@ -1,16 +1,13 @@
-// controllers/authController.js
+const express = require('express');  // Importar express
 const pool = require('../config/db');  // La conexión a la base de datos PostgreSQL
 const bcrypt = require('bcrypt');  // Para comparar contraseñas
 const jwt = require('jsonwebtoken');  // Para generar el token JWT
 
-// Controlador para el login
+/// Controlador para el login
 exports.login = async (req, res) => {
   const { usuario, contraseña } = req.body;
 
-  router.post('/login', authController.login);
-
   try {
-    // Verificamos si el usuario existe en la base de datos
     const query = 'SELECT * FROM personal WHERE usuario = $1';
     const result = await pool.query(query, [usuario]);
 
@@ -19,22 +16,18 @@ exports.login = async (req, res) => {
     }
 
     const user = result.rows[0];
-
-    // Verificamos si la contraseña es correcta
     const passwordIsValid = await bcrypt.compare(contraseña, user.contraseña_hash);
 
     if (!passwordIsValid) {
       return res.status(401).json({ message: 'Contraseña incorrecta' });
     }
 
-    // Si todo está bien, generamos un token JWT
     const token = jwt.sign(
-      { id_personal: user.id_personal, rol: user.rol },  // Cargamos el ID y el rol del usuario en el token
-      'secret_key',  // La clave secreta para firmar el token (en producción, usar variables de entorno)
-      { expiresIn: '24h' }  // El token expirará en 24 horas
+      { id_personal: user.id_personal, rol: user.rol },
+      'secret_key',
+      { expiresIn: '24h' }
     );
 
-    // Devolvemos el token y el rol del usuario
     res.status(200).json({
       message: 'Login exitoso',
       token: token,

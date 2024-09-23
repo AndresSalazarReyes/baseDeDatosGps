@@ -1,9 +1,10 @@
-const app = require('./app');  // Importa la configuración de app.js
+const express = require('express');
+const app = express();
+const authRoutes = require('./routes/authRoutes');  // Asegúrate de la ruta correcta
 
-// Configurar el puerto
-const PORT = process.env.PORT || 3000;
+app.use(express.json());  // Para poder parsear JSON
+app.use('/auth', authRoutes);  // Usar el enrutador
 
-// Iniciar el servidor
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en el puerto ${PORT}`);
+app.listen(3000, () => {
+    console.log('Servidor corriendo en el puerto 3000');
 });
