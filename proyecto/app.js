@@ -5,7 +5,7 @@ const activosRoutes = require('./routes/activosRoutes');  // Importar rutas de s
 
 // Middleware para analizar JSON
 app.use(express.json());
-
+app.use('/auth/activos', activosRoutes);
 // Rutas de autenticación
 app.use('/auth', authRoutes);  // Ruta base para autenticación
 
