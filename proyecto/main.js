@@ -1,12 +1,14 @@
 const express = require('express');
 const app = express();
 const authRoutes = require('./routes/authRoutes'); 
-const activosRoutes = require('./routes/activosRoutes'); // Asegúrate de la ruta correcta
+const activosRoutes = require('./routes/activosRoutes'); 
 
-app.use(express.json());  // Para poder parsear JSON
+app.use(express.json());  
+
 app.use('/auth', authRoutes);
 
-app.use('/auth/activos', activosRoutes);
+app.use('/activos', activosRoutes);
+
 app.listen(3000, () => {
     console.log('Servidor corriendo en el puerto 3000');
 });

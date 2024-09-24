@@ -1,9 +1,9 @@
-const express = require('express');  // Importar express
+const express = require('express');
 const pool = require('../config/db');  // La conexión a la base de datos PostgreSQL
 const bcrypt = require('bcrypt');  // Para comparar contraseñas
 const jwt = require('jsonwebtoken');  // Para generar el token JWT
 
-/// Controlador para el login
+// Controlador para el login
 exports.login = async (req, res) => {
   const { usuario, contraseña } = req.body;
 
@@ -22,6 +22,7 @@ exports.login = async (req, res) => {
       return res.status(401).json({ message: 'Contraseña incorrecta' });
     }
 
+    // Generar token JWT
     const token = jwt.sign(
       { id_personal: user.id_personal, rol: user.rol },
       'secret_key',
@@ -35,7 +36,7 @@ exports.login = async (req, res) => {
     });
 
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error en el servidor' });
+    console.error('Error en el login:', error);  // Agrega esto para ver el error exacto en la consola
+    res.status(500).json({ message: 'Error en el servidor', error: error.message });  // Envía el mensaje de error detallado
   }
 };
