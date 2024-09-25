@@ -1,0 +1,4 @@
+npm install express pg jsonwebtoken bcrypt
+npm install pg bcrypt
+npm install dotenv
+npm install dotenv
